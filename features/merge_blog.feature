@@ -17,24 +17,24 @@ Feature: Merge Blogs
   
   Scenario: Merged articles should contain the text of both previous articles.
     Given I am an admin
-    When I fill in "Article ID" with "2"
+    When I fill in "merge_with" with "2"
     Then I click "Merge"
     Then I should see the text of both "A" and "B"
     
   Scenario: Merged article should have one author (either one of the authors of the original article).
     Given I am an admin
-    When I fill in "Article ID" with "2"
+    When I fill in "merge_with" with "2"
     Then I click "Merge"
     Then I should see the new author as "A" or "B"
   
   Scenario: Comments on each of the two original articles need to all carry over and point to the new, merged article.
     Given I am an admin
-    When I fill in "Article ID" with "2"
+    When I fill in "merge_with" with "2"
     Then I click "Merge"
     Then I should see all the comments from "A" and "B" on the merged article
   
   Scenario: The title of the new article should be the title from either one of the merged articles.
     Given I am an admin
-    When I fill in "Article ID" with "2"
+    When I fill in "merge_with" with "2"
     Then I click "Merge"
     Then I should see the merged article be titled "A" or "B"
