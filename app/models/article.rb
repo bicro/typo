@@ -222,6 +222,23 @@ class Article < Content
 
     urls.uniq
   end
+  
+  def merge article
+    new_article = dup
+    new_article.id = nil
+    new_article.guid = nil
+    new_article.body = body + article.body
+    new_article.save!
+    
+    (comments + article.comments).each do |c|
+      c2 = c.dup
+      c2.id = nil
+      c2.article_id = new_article.id
+      c2.save!
+    end
+    
+    new_article
+  end
 
   def really_send_pings(serverurl = blog.base_url, articleurl = nil)
     return unless blog.send_outbound_pings

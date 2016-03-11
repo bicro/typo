@@ -112,6 +112,20 @@ class Admin::ContentController < Admin::BaseController
     end
     render :text => nil
   end
+  
+  def merge
+    article_a = Article.find(params[:id])
+    article_b = Article.find(params[:merge_with].to_i)
+    
+    if article_b && article_a != article_b
+      article_n = article_a.merge(article_b)
+    
+      redirect_to "/admin/content/edit/#{article_n.id}"
+    
+    else
+      redirect_to "/admin/content/edit/#{params[:id]}"
+    end
+  end
 
   protected
 
